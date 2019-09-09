@@ -23,7 +23,7 @@ def check_alarm_input(alarm_time):
     if len(alarm_time) == 1:  # [Hour] Format
         if 24 > alarm_time[0] >= 0:
             return True
-    if len(alarm_time) == 2:  # [Hour:Minute] Format
+    elif len(alarm_time) == 2:  # [Hour:Minute] Format
         if 24 > alarm_time[0] >= 0 and \
                 60 > alarm_time[1] >= 0:
             return True
@@ -32,7 +32,19 @@ def check_alarm_input(alarm_time):
                 60 > alarm_time[1] >= 0 and \
                 60 > alarm_time[2] >= 0:
             return True
-    return False
+    else:
+        return False
+
+
+def wake_up_now():
+    print("Wake Up!")
+
+    # Load list of possible video URLs
+    with open("youtube_alarm_videos.txt", "r") as alarm_file:
+        videos = alarm_file.readlines()
+
+    # Open a random video from the list
+    webbrowser.open(random.choice(videos))
 
 
 # Get user input for the alarm time
@@ -70,11 +82,26 @@ print("Alarm set to go off in %s" % datetime.timedelta(seconds=time_diff_seconds
 time.sleep(time_diff_seconds)
 
 # Time for the alarm to go off
-print("Wake Up!")
+wake_up_now()
 
-# Load list of possible video URLs
-with open("youtube_alarm_videos.txt", "r") as alarm_file:
-    videos = alarm_file.readlines()
 
-# Open a random video from the list
-webbrowser.open(random.choice(videos))
+def snooze_input(answer):
+    if answer == "yes":
+        return True
+    else:
+        return False
+
+
+while True:
+    print("Do you want to set a snooze? Write \"yes\" if you do, press Enter if not")
+    snooze_answer = input(">>")
+
+    if snooze_input(snooze_answer):
+
+        snooze_time_seconds = 60 * int(input("snooze time in minutes: "))
+        print("Alarm set to go off in %s" % datetime.timedelta(seconds=snooze_time_seconds))
+        time.sleep(snooze_time_seconds)
+        wake_up_now()
+
+    else:
+        break
