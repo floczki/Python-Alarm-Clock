@@ -3,6 +3,7 @@
 """Simple Python script to set an alarm for a specific time.
    When the alarm goes off, a random youtube video will be opened.
    The possible youtube video URLs are taken from "youtube_alarm_videos.txt"
+   With snooze option added
 """
 
 import datetime
@@ -37,6 +38,7 @@ def check_alarm_input(alarm_time):
 
 
 def wake_up_now():
+    """Opens random video on YouTube to wake up"""
     print("Wake Up!")
 
     # Load list of possible video URLs
@@ -86,12 +88,14 @@ wake_up_now()
 
 
 def snooze_input(answer):
+    """checks user's input to turn on a snooze"""
     if answer == "yes":
         return True
     else:
         return False
 
 
+# repeating snooze until user stops it
 while True:
     print("Do you want to set a snooze? Write \"yes\" if you do, press Enter if not")
     snooze_answer = input(">>")
