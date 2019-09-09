@@ -39,7 +39,10 @@ def check_alarm_input(alarm_time):
 
 def wake_up_now():
     """Opens random video on YouTube to wake up"""
-    print("Wake Up!")
+    if display_message:
+        print(message)
+    else:
+        print("Wake Up!")
 
     # Load list of possible video URLs
     with open("youtube_alarm_videos.txt", "r") as alarm_file:
@@ -61,6 +64,13 @@ while True:
             raise ValueError
     except ValueError:
         print("ERROR: Enter time in HH:MM or HH:MM:SS format")
+
+ask_for_message = input("Do you want to display a message during an alarm? Write \"yes\" if you do, press Enter if not")
+if ask_for_message == "yes":
+    display_message = True
+    message = input("Your message: ")
+else:
+    display_message = False
 
 # Convert the alarm time from [H:M] or [H:M:S] to seconds
 seconds_hms = [3600, 60, 1]  # Number of seconds in an Hour, Minute, and Second
