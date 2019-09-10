@@ -6,10 +6,10 @@
    With snooze option and wake up text added by Franek
 """
 
-import datetime
+from datetime import datetime, timedelta
+from random import random
 import os
 import time
-import random
 import webbrowser
 
 # If video URL file does not exist, create one
@@ -80,7 +80,7 @@ seconds_hms = [3600, 60, 1]  # Number of seconds in an Hour, Minute, and Second
 alarm_seconds = sum([a * b for a, b in zip(seconds_hms[:len(alarm_time)], alarm_time)])
 
 # Get the current time of day in seconds
-now = datetime.datetime.now()
+now = datetime.now()
 current_time_seconds = sum([a * b for a, b in zip(seconds_hms, [now.hour, now.minute, now.second])])
 
 # Calculate the number of seconds until alarm goes off
@@ -91,7 +91,7 @@ if time_diff_seconds < 0:
     time_diff_seconds += 86400  # number of seconds in a day
 
 # Display the amount of time until the alarm goes off
-print(f"Alarm set to go off in {datetime.timedelta(seconds=time_diff_seconds)}")
+print(f"Alarm set to go off in {timedelta(seconds=time_diff_seconds)}")
 
 # Sleep until the alarm goes off
 time.sleep(time_diff_seconds)
