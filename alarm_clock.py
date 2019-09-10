@@ -91,7 +91,7 @@ if time_diff_seconds < 0:
     time_diff_seconds += 86400  # number of seconds in a day
 
 # Display the amount of time until the alarm goes off
-print("Alarm set to go off in %s" % datetime.timedelta(seconds=time_diff_seconds))
+print(f"Alarm set to go off in {datetime.timedelta(seconds=time_diff_seconds)}")
 
 # Sleep until the alarm goes off
 time.sleep(time_diff_seconds)
@@ -99,24 +99,14 @@ time.sleep(time_diff_seconds)
 # Time for the alarm to go off
 wake_up_now()
 
-
-def snooze_input(answer):
-    """checks user's input to turn on a snooze"""
-    if answer == "yes" or answer == "Yes":
-        return True
-    else:
-        return False
-
-
 # repeating snooze until user stops it
 while True:
     print("Do you want to set a snooze? Write \"yes\" if you do, press Enter if not")
     snooze_answer = input(">> ")
 
-    if snooze_input(snooze_answer):
-
+    if snooze_answer == "yes" or snooze_answer == "Yes":
         snooze_time_seconds = 60 * int(input("snooze time in minutes: "))
-        print("Alarm set to go off in %s" % datetime.timedelta(seconds=snooze_time_seconds))
+        print(f"Alarm set to go off in {datetime.timedelta(seconds=snooze_time_seconds)}")
         time.sleep(snooze_time_seconds)
         wake_up_now()
 
