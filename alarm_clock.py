@@ -7,16 +7,22 @@
 """
 
 from datetime import datetime, timedelta
-from random import random
+import random
 import os
 import time
 import webbrowser
 
 # If video URL file does not exist, create one
 if not os.path.isfile("youtube_alarm_videos.txt"):
+    print("There isn't a file with video's path. Write \"my own\" to set your video or press Enter for default video")
+    video_answer = input(">> ")
+    if video_answer == "my own":
+        video_path = input("paste YT video URL here: ")
+    else:
+        video_path = "https://www.youtube.com/watch?v=sspp8YfUceM"
     print('Creating "youtube_alarm_videos.txt"...')
     with open("youtube_alarm_videos.txt", "w") as alarm_file:
-        alarm_file.write("https://www.youtube.com/watch?v=anM6uIZvx74")
+        alarm_file.write(video_path)
 
 
 def check_alarm_input(alarm_time):
@@ -106,7 +112,7 @@ while True:
 
     if snooze_answer == "yes" or snooze_answer == "Yes":
         snooze_time_seconds = 60 * int(input("snooze time in minutes: "))
-        print(f"Alarm set to go off in {datetime.timedelta(seconds=snooze_time_seconds)}")
+        print(f"Alarm set to go off in {timedelta(seconds=snooze_time_seconds)}")
         time.sleep(snooze_time_seconds)
         wake_up_now()
 
